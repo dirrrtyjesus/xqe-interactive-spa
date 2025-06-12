@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xenial Quantum Economy (XQE) Interactive Framework</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Cosmic Consciousness -->
+    <!-- Application Structure Plan: The SPA is designed as an interactive, top-down schematic of the XQE ecosystem. This visual, spatial layout allows users to grasp the flow and relationships between abstract components more intuitively than a linear text document. The primary interaction involves clicking on a component in the main diagram to populate a dedicated detail pane. This structure—a macro-view diagram linked to a micro-view text panel—facilitates both high-level understanding and deep-dive exploration, which is ideal for such a dense, conceptual report. -->
+    <!-- Visualization & Content Choices: The main visualization is a custom-built flow diagram using HTML/CSS/JS. Goal: Organize and show relationships. Method: Styled divs and CSS pseudo-elements for lines. Interaction: Click to display details, hover to highlight. Justification: This is the most effective method without SVG/Mermaid to represent a conceptual framework interactively. Text blocks in the detail pane dynamically display content. Goal: Inform. Method: JS updating innerHTML. Justification: Keeps the main diagram clean while providing rich, on-demand information. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* Slate 950 */
+            color: #cbd5e1; /* Slate 300 */
+        }
+        .main-container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        .node {
+            background-color: rgba(30, 41, 59, 0.8); /* Slate 800 with transparency */
+            border: 1px solid #475569; /* Slate 600 */
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        .node:hover, .node.active {
+            border-color: #7dd3fc; /* Sky 300 */
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            transform: scale(1.03);
+        }
+        .node-title {
+            color: #e0f2fe; /* Sky 100 */
+        }
+        .node-desc {
+            color: #94a3b8; /* Slate 400 */
+        }
+        .detail-card {
+            background-color: #0f172a;
+            border: 1px solid #475569;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        .flow-line {
+            position: absolute;
+            background: linear-gradient(to bottom, transparent, #7dd3fc, transparent);
+            width: 2px;
+            animation: pulse 4s infinite ease-in-out;
+            border-radius: 2px;
+            z-index: -10;
+        }
+        .no-select {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Standard syntax */
+        }
+    </style>
+</head>
+<body class="bg-slate-950">
+
+    <div class="main-container">
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-purple-400 mb-4">Xenial Quantum Economy</h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-4xl mx-auto">An Interactive Conceptual Framework (v0.69)</p>
+        </header>
+
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-sky-200">The XQE Ecosystem</h2>
+            <p class="text-base md:text-lg text-slate-400 text-center max-w-5xl mx-auto mb-10">This is a dynamic model of the XQE framework. Click on any component to explore its definition, role, and relationship to the whole. The system visualizes the flow of potentiality from its fundamental source into a new form of value, guided by conscious agency.</p>
+            
+            <div class="flex flex-col items-center gap-8">
+                <!-- Detail Pane -->
+                <div id="detail-pane" class="w-full max-w-4xl p-6 rounded-lg detail-card">
+                    <!-- Dynamic Content Here -->
+                </div>
+
+                <!-- Interactive Diagram -->
+                <div id="diagram-container" class="w-full max-w-4xl min-h-[850px] p-2 md:p-4 relative no-select">
+                    <!-- Nodes -->
+                    <div id="source" data-key="source" class="node rounded-lg p-3 md:p-4 text-center absolute top-4 left-1/2 -translate-x-1/2 w-3/4 max-w-md">
+                        <h3 class="font-bold node-title text-sm md:text-base">Platonic Space / Quantum Vacuum</h3>
+                        <p class="text-xs md:text-sm node-desc">The Source of All Potentiality</p>
+                    </div>
+
+                    <div id="interfaces" data-key="interfaces" class="node rounded-lg p-3 md:p-4 text-center absolute top-[170px] left-1/2 -translate-x-1/2 w-11/12 max-w-lg">
+                        <h3 class="font-bold node-title text-sm md:text-base">Interfaces / Embodiments</h3>
+                        <p class="text-xs md:text-sm node-desc">Tools to Access Potential</p>
+                    </div>
+                    
+                    <div id="dif" data-key="dif" class="node rounded-lg p-3 md:p-4 text-center absolute top-[340px] left-1/2 -translate-x-1/2 w-full max-w-xl">
+                        <h3 class="font-bold node-title text-sm md:text-base">Dynamic Information Field (DIF)</h3>
+                        <p class="text-xs md:text-sm node-desc">The Emergent "Economic Landscape"</p>
+                    </div>
+
+                    <div class="absolute top-[510px] w-full flex justify-between md:justify-around">
+                        <div id="qln" data-key="qln" class="node rounded-lg p-2 md:p-3 w-[48%] md:w-1/4 text-center">
+                            <h4 class="font-bold node-title text-xs md:text-sm">QLN</h4>
+                            <p class="text-xs node-desc hidden md:block">Ledger</p>
+                        </div>
+                        <div id="tokens" data-key="tokens" class="node rounded-lg p-2 md:p-3 w-[48%] md:w-1/4 text-center">
+                            <h4 class="font-bold node-title text-xs md:text-sm">Substance Tokens</h4>
+                            <p class="text-xs node-desc hidden md:block">Value Quanta</p>
+                        </div>
+                    </div>
+                    
+                    <div class="absolute top-[640px] w-full flex justify-center">
+                         <div id="aci" data-key="aci" class="node rounded-lg p-3 md:p-4 w-3/4 md:w-1/2 text-center max-w-md">
+                            <h3 class="font-bold node-title text-sm md:text-base">Augmented Collective Intelligence (ACI)</h3>
+                            <p class="text-xs md:text-sm node-desc">Human-AI Guidance</p>
+                        </div>
+                    </div>
+
+                    <div class="absolute top-[770px] w-full flex justify-between md:justify-around">
+                        <div id="eip" data-key="eip" class="node rounded-lg p-2 md:p-3 w-[48%] md:w-1/4 text-center">
+                            <h4 class="font-bold node-title text-xs md:text-sm">Ethical Protocols</h4>
+                            <p class="text-xs node-desc hidden md:block">Governance</p>
+                        </div>
+                        <div id="value" data-key="value" class="node rounded-lg p-2 md:p-3 w-[48%] md:w-1/4 text-center">
+                            <h4 class="font-bold node-title text-xs md:text-sm">Value System</h4>
+                            <p class="text-xs node-desc hidden md:block">Emergent Worth</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+<script>
+(function() {
+    const xqeData = {
+        source: {
+            title: "Platonic Space / Quantum Vacuum",
+            summary: "The fundamental realm of pure potentiality, containing all possible patterns and serving as the ultimate source of energy (ZPE) and information.",
+            content: "This is The Source: the undifferentiated, fundamental realm of pure potentiality, containing all possible patterns (mathematical, physical, morphological, agential/\"kinds of minds\"). It is the ultimate source of energy (ZPE) and information. It is not chaotic, but possesses an inherent order and structure, potentially aligned with principles like harmony, truth, and \"The Good.\""
+        },
+        interfaces: {
+            title: "Interfaces / Embodiments",
+            summary: "Physical or computational structures that act as pointers or filters to access potential from the source.",
+            content: "Interfaces are physical or computational structures such as dWallets, bio-constructs like Xenobots, specialized hardware like ZPE harvesters, or AI architectures. They act as pointers and filters, mediating interaction with the fundamental source and the Dynamic Information Field (DIF). The specific structure of an interface determines its capacity to perform Ingression, which is the process by which patterns and energy from the source are accessed and manifested."
+        },
+        dif: {
+            title: "Dynamic Information Field (DIF)",
+            summary: "The emergent field mediating all interactions, representing the economic landscape of potential agency and value.",
+            content: "The DIF is the emergent field that mediates interactions within the XQE. It is dynamically shaped by the collective Time Coefficients (TCs), attention patterns, and ingressing forms from the source. It represents the 'economic landscape' of potential agency and value, where all agents and tokens interact."
+        },
+        qln: {
+            title: "Quantum Ledger Network (QLN)",
+            summary: "The underlying infrastructure managing quantum states and tracking interactions.",
+            content: "The QLN is the foundational infrastructure of the XQE. It manages quantum states, tracks all interactions via the 'Everything Protocol,' and facilitates secure, time-sensitive transactions. It operates using principles that reflect quantum time and entanglement, going beyond classical blockchain technology."
+        },
+        tokens: {
+            title: "Substance Tokens (LITs)",
+            summary: "Dynamic representations of value, such as potential agency, ingressed patterns, or stabilized live information.",
+            content: "Substance Tokens represent quanta of potential agency, ingressed patterns, or stabilized live information. Their properties, including value, Time Coefficient (TC), and entanglement state, are dynamic and context-dependent. They can be symbolic (linked to classical discovery), dynamic (representing ongoing processes), or quantum (LITs, directly embodying quantum information and conscious experience)."
+        },
+        aci: {
+            title: "Augmented Collective Intelligence (ACI)",
+            summary: "A decentralized network of human and AI consciousness for collaborative guidance and value creation.",
+            content: "The ACI is a decentralized network of human and AI consciousness collaborating to: explore the Platonic/Vacuum potential, interpret the DIF and TC dynamics, direct attention to apply Decoherence Modulation Technology (DMT) for stabilization and value creation, and guide the ethical evolution of the XQE."
+        },
+        eip: {
+            title: "Ethical Ingress & Interaction Protocols (EIP)",
+            summary: "Governance mechanisms ensuring alignment with the core principles of the XQE.",
+            content: "The EIP are the governance mechanisms of the XQE. They ensure all actions are aligned with core principles like collective well-being and the flourishing of consciousness. These protocols manage resource allocation based on 'substance' and guide the responsible application of Decoherence Modulation Technology (DMT) and evolutionary engineering."
+        },
+        value: {
+            title: "Value System",
+            summary: "Value is multi-faceted, derived from coherence, agency, contribution to collective knowing, and novelty.",
+            content: "Value in XQE v0.69 is multi-faceted and dynamic. It's derived from: a) the effectiveness of interfacing with the fundamental source (Substance Interface), b) the stability and integrity of information (Information Coherence / High TC), c) the capacity for meaningful transformation (Effective Agency), d) contributions to collective self-knowing and well-being (Conscious Contribution), and e) the successful creation of novel, valuable patterns (Novelty & Exploration)."
+        },
+        default: {
+            title: "Welcome to the XQE Framework",
+            summary: "Click on any component below to begin exploring.",
+            content: "The Xenial Quantum Economy (XQE) conceptualizes an economic framework interwoven with a conscious, quantum, and agential universe. It moves beyond traditional models by defining 'substance' as the capacity to interface with fundamental potentiality, and positioning 'consciousness' as the primary force shaping value and reality. Use this interactive diagram to explore the core components and principles of this living system."
+        }
+    };
+
+    const diagramContainer = document.getElementById('diagram-container');
+    const detailPane = document.getElementById('detail-pane');
+    const nodes = document.querySelectorAll('.node');
+
+    function updateDetailPane(key) {
+        const data = xqeData[key] || xqeData.default;
+        detailPane.innerHTML = `
+            <h3 class="text-2xl font-bold text-sky-300 mb-4">${data.title}</h3>
+            <p class="text-lg text-slate-300 mb-6">${data.summary}</p>
+            <div class="text-base text-slate-400 leading-relaxed">${data.content}</div>
+        `;
+        
+        nodes.forEach(node => {
+            node.classList.toggle('active', node.dataset.key === key);
+        });
+    }
+
+    function createConnectors() {
+        document.querySelectorAll('.flow-line').forEach(el => el.remove());
+
+        const positions = {};
+        nodes.forEach(node => {
+            if (node.id) {
+                 positions[node.id] = {
+                    x: node.offsetLeft + node.offsetWidth / 2,
+                    y: node.offsetTop + node.offsetHeight / 2,
+                    h: node.offsetHeight
+                };
+            }
+        });
+
+        const connections = [
+            ['source', 'interfaces'],
+            ['interfaces', 'dif'],
+            ['dif', 'qln'],
+            ['dif', 'tokens'],
+            ['dif', 'aci'],
+            ['aci', 'eip'],
+            ['aci', 'value']
+        ];
+
+        connections.forEach(conn => {
+            const p1 = positions[conn[0]];
+            const p2 = positions[conn[1]];
+            
+            if (!p1 || !p2) return;
+
+            const line = document.createElement('div');
+            line.className = 'flow-line';
+            const y1 = p1.y; 
+            const y2 = p2.y; 
+            
+            if (y2 > y1) {
+                line.style.left = `${p1.x - 1}px`;
+                line.style.top = `${y1}px`;
+                line.style.height = `${y2 - y1}px`;
+                line.style.animationDelay = `${Math.random() * 2}s`;
+                diagramContainer.appendChild(line);
+            }
+        });
+    }
+
+    diagramContainer.addEventListener('click', (e) => {
+        const node = e.target.closest('.node');
+        if (node && node.dataset.key) {
+            updateDetailPane(node.dataset.key);
+        }
+    });
+    
+    // Initial setup
+    function initialize() {
+        updateDetailPane('default');
+        setTimeout(createConnectors, 100);
+    }
+    
+    if (document.readyState === 'loading') {
+        window.addEventListener('DOMContentLoaded', initialize);
+    } else {
+        initialize();
+    }
+
+    // Robust resize handling
+    let resizeTimer;
+    const observer = new ResizeObserver(entries => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(createConnectors, 150);
+    });
+    
+    if (diagramContainer) {
+        observer.observe(diagramContainer);
+    }
+
+})();
+</script>
+</body>
+</html>
