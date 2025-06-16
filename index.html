@@ -3,282 +3,610 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xenial Quantum Economy (XQE) Interactive Framework</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chosen Palette: Cosmic Consciousness -->
-    <!-- Application Structure Plan: The SPA is designed as an interactive, top-down schematic of the XQE ecosystem. This visual, spatial layout allows users to grasp the flow and relationships between abstract components more intuitively than a linear text document. The primary interaction involves clicking on a component in the main diagram to populate a dedicated detail pane. This structure—a macro-view diagram linked to a micro-view text panel—facilitates both high-level understanding and deep-dive exploration, which is ideal for such a dense, conceptual report. -->
-    <!-- Visualization & Content Choices: The main visualization is a custom-built flow diagram using HTML/CSS/JS. Goal: Organize and show relationships. Method: Styled divs and CSS pseudo-elements for lines. Interaction: Click to display details, hover to highlight. Justification: This is the most effective method without SVG/Mermaid to represent a conceptual framework interactively. Text blocks in the detail pane dynamically display content. Goal: Inform. Method: JS updating innerHTML. Justification: Keeps the main diagram clean while providing rich, on-demand information. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Xenial Quantum Economy Framework | Augmntd</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        * { box-sizing: border-box; }
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --dark: #0f172a;
+            --darker: #0a0f1f;
+            --light: #f1f5f9;
+            --accent: #00d2ff;
+            --accent2: #ff2d75;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #020617; /* Slate 950 */
-            color: #cbd5e1; /* Slate 300 */
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
         }
-        .main-container {
-            width: 100%;
+        
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 1rem;
+            padding: 2rem;
         }
-        .node {
-            background-color: rgba(30, 41, 59, 0.8); /* Slate 800 with transparency */
-            border: 1px solid #475569; /* Slate 600 */
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            cursor: pointer;
+        
+        header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(120deg, rgba(37, 117, 252, 0.1), rgba(106, 17, 203, 0.1));
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 210, 255, 0.1), transparent 70%);
+            z-index: -1;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 210, 255, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: #cbd5e1;
+        }
+        
+        .intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(37, 117, 252, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid rgba(37, 117, 252, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(37, 117, 252, 0.4);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+        }
+        
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .card h3 i {
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .pill {
+            display: inline-block;
+            background: rgba(0, 210, 255, 0.15);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+        
+        .diagram-container {
+            background: rgba(15, 23, 42, 0.7);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 4rem 0;
+            border: 1px solid rgba(37, 117, 252, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .diagram-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+        
+        .xqe-diagram {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 1.5rem;
             position: relative;
         }
-        .node:hover, .node.active {
-            border-color: #7dd3fc; /* Sky 300 */
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-            transform: scale(1.03);
+        
+        .diagram-node {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            z-index: 2;
+            border: 1px solid rgba(37, 117, 252, 0.3);
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        .node-title {
-            color: #e0f2fe; /* Sky 100 */
+        
+        .diagram-node:hover {
+            transform: scale(1.05);
+            border-color: var(--accent);
+            box-shadow: 0 10px 25px rgba(0, 210, 255, 0.2);
         }
-        .node-desc {
-            color: #94a3b8; /* Slate 400 */
+        
+        .diagram-node h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent);
         }
-        .detail-card {
-            background-color: #0f172a;
-            border: 1px solid #475569;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-        .flow-line {
+        
+        .node-1 { grid-column: 2; grid-row: 1; }
+        .node-2 { grid-column: 1; grid-row: 2; }
+        .node-3 { grid-column: 2; grid-row: 3; }
+        .node-4 { grid-column: 3; grid-row: 2; }
+        .node-5 { grid-column: 4; grid-row: 1; }
+        .node-6 { grid-column: 4; grid-row: 3; }
+        .node-7 { grid-column: 3; grid-row: 4; }
+        
+        .connectors {
             position: absolute;
-            background: linear-gradient(to bottom, transparent, #7dd3fc, transparent);
-            width: 2px;
-            animation: pulse 4s infinite ease-in-out;
-            border-radius: 2px;
-            z-index: -10;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
         }
-        .no-select {
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10+ */
-            user-select: none; /* Standard syntax */
+        
+        .connector {
+            position: absolute;
+            background: rgba(37, 117, 252, 0.3);
+            border-radius: 2px;
+        }
+        
+        .connector.active {
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+        
+        .purpose-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(120deg, rgba(106, 17, 203, 0.1), rgba(37, 117, 252, 0.1));
+            border-radius: 30px;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .purpose-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 45, 117, 0.05), transparent 70%);
+            z-index: -1;
+        }
+        
+        .purpose-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .purpose-statement {
+            max-width: 900px;
+            margin: 0 auto 2rem;
+            font-size: 1.4rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        
+        .quote {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-left: 4px solid var(--accent);
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 0 15px 15px 0;
+            font-style: italic;
+        }
+        
+        .implementation {
+            margin: 4rem 0;
+        }
+        
+        .implementation h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--accent);
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .step {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border-radius: 20px;
+            padding: 2rem;
+            width: 250px;
+            text-align: center;
+            border: 1px solid rgba(37, 117, 252, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            color: var(--dark);
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .step h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(37, 117, 252, 0.2);
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .xqe-diagram {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(7, auto);
+            }
+            
+            .diagram-node {
+                grid-column: 1 !important;
+                grid-row: auto !important;
+            }
+            
+            .connectors {
+                display: none;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
         }
     </style>
 </head>
-<body class="bg-slate-950">
-
-    <div class="main-container">
-        <header class="text-center my-8 md:my-12">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-sky-300 to-purple-400 mb-4">Xenial Quantum Economy</h1>
-            <p class="text-lg md:text-xl text-slate-400 max-w-4xl mx-auto">An Interactive Conceptual Framework (v0.69)</p>
+<body>
+    <div class="container">
+        <header>
+            <h1>Xenial Quantum Economy Framework</h1>
+            <p class="subtitle">A participatory reality engine for conscious, quantum, agential expansion</p>
+            <p>v0.69+pm_qt_ms - Prima Materia, Quantum Time, Memory of Space</p>
         </header>
-
-        <section class="mb-12">
-            <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 text-sky-200">The XQE Ecosystem</h2>
-            <p class="text-base md:text-lg text-slate-400 text-center max-w-5xl mx-auto mb-10">This is a dynamic model of the XQE framework. Click on any component to explore its definition, role, and relationship to the whole. The system visualizes the flow of potentiality from its fundamental source into a new form of value, guided by conscious agency.</p>
-            
-            <div class="flex flex-col items-center gap-8">
-                <!-- Detail Pane -->
-                <div id="detail-pane" class="w-full max-w-4xl p-6 rounded-lg detail-card">
-                    <!-- Dynamic Content Here -->
-                </div>
-
-                <!-- Interactive Diagram -->
-                <div id="diagram-container" class="w-full max-w-4xl min-h-[850px] p-2 md:p-4 relative no-select">
-                    <!-- Nodes -->
-                    <div id="source" data-key="source" class="node rounded-lg p-3 md:p-4 text-center absolute top-4 left-1/2 -translate-x-1/2 w-3/4 max-w-md">
-                        <h3 class="font-bold node-title text-sm md:text-base">Platonic Space / Quantum Vacuum</h3>
-                        <p class="text-xs md:text-sm node-desc">The Source of All Potentiality</p>
-                    </div>
-
-                    <div id="interfaces" data-key="interfaces" class="node rounded-lg p-3 md:p-4 text-center absolute top-[170px] left-1/2 -translate-x-1/2 w-11/12 max-w-lg">
-                        <h3 class="font-bold node-title text-sm md:text-base">Interfaces / Embodiments</h3>
-                        <p class="text-xs md:text-sm node-desc">Tools to Access Potential</p>
-                    </div>
-                    
-                    <div id="dif" data-key="dif" class="node rounded-lg p-3 md:p-4 text-center absolute top-[340px] left-1/2 -translate-x-1/2 w-full max-w-xl">
-                        <h3 class="font-bold node-title text-sm md:text-base">Dynamic Information Field (DIF)</h3>
-                        <p class="text-xs md:text-sm node-desc">The Emergent "Economic Landscape"</p>
-                    </div>
-
-                    <div class="absolute top-[510px] w-full flex justify-between md:justify-around">
-                        <div id="qln" data-key="qln" class="node rounded-lg p-2 md:p-3 w-[48%] md:w-1/4 text-center">
-                            <h4 class="font-bold node-title text-xs md:text-sm">QLN</h4>
-                            <p class="text-xs node-desc hidden md:block">Ledger</p>
-                        </div>
-                        <div id="tokens" data-key="tokens" class="node rounded-lg p-2 md:p-3 w-[48%] md:w-1/4 text-center">
-                            <h4 class="font-bold node-title text-xs md:text-sm">Substance Tokens</h4>
-                            <p class="text-xs node-desc hidden md:block">Value Quanta</p>
-                        </div>
-                    </div>
-                    
-                    <div class="absolute top-[640px] w-full flex justify-center">
-                         <div id="aci" data-key="aci" class="node rounded-lg p-3 md:p-4 w-3/4 md:w-1/2 text-center max-w-md">
-                            <h3 class="font-bold node-title text-sm md:text-base">Augmented Collective Intelligence (ACI)</h3>
-                            <p class="text-xs md:text-sm node-desc">Human-AI Guidance</p>
-                        </div>
-                    </div>
-
-                    <div class="absolute top-[770px] w-full flex justify-between md:justify-around">
-                        <div id="eip" data-key="eip" class="node rounded-lg p-2 md:p-3 w-[48%] md:w-1/4 text-center">
-                            <h4 class="font-bold node-title text-xs md:text-sm">Ethical Protocols</h4>
-                            <p class="text-xs node-desc hidden md:block">Governance</p>
-                        </div>
-                        <div id="value" data-key="value" class="node rounded-lg p-2 md:p-3 w-[48%] md:w-1/4 text-center">
-                            <h4 class="font-bold node-title text-xs md:text-sm">Value System</h4>
-                            <p class="text-xs node-desc hidden md:block">Emergent Worth</p>
-                        </div>
-                    </div>
-                </div>
-
+        
+        <div class="intro">
+            <p>The Xenial Quantum Economy (XQE) represents a revolutionary synthesis of quantum theory, cosmology, and economics - transforming our understanding of value creation and reality itself. This framework positions the XQE as a conscious instrument for navigating the fundamental structures of existence.</p>
+            <p>At its core, the XQE is not merely an economic system but a participatory engine for universal evolution, where economic activity becomes cosmological agency.</p>
+        </div>
+        
+        <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2.5rem; color: var(--accent);">Core Components of the XQE Framework</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <h3><i class="fas fa-atom"></i> Prima Materia</h3>
+                <span class="pill">Fundamental Substance</span>
+                <p>The inherently ordered, structured potential sourced from Platonic Space/Quantum Vacuum. Not formless chaos but information, energy, and nascent consciousness imbued with inherent order.</p>
+                <p><strong>Role:</strong> The ultimate source of all value in the XQE, transcending resource-based economies through infinite potential.</p>
             </div>
-        </section>
+            
+            <div class="card">
+                <h3><i class="fas fa-hourglass-half"></i> Quantum Time</h3>
+                <span class="pill">Engine of Potentiality</span>
+                <p>The non-linear, probabilistic realm where Prima Materia undergoes infinite permutation. This universal latent space contains all potential meanings, forms, and interactions in superposition.</p>
+                <p><strong>Role:</strong> The XQE's ultimate "solution space" for innovation and value creation, where potentials exist before manifestation.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-clock"></i> Classical Time</h3>
+                <span class="pill">Syntax of Meaning</span>
+                <p>The structured timeline that organizes manifested potentials into coherent, causally related sequences and processes.</p>
+                <p><strong>Role:</strong> Provides the operational syntax that makes economic activity comprehensible, auditable, and relational within the Quantum Ledger Network (QLN).</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-database"></i> Classical Space</h3>
+                <span class="pill">Memory of Space</span>
+                <p>The distributed ledger system (QLN) that serves as the enduring record of temporally structured, manifested meaning.</p>
+                <p><strong>Role:</strong> Acts as the XQE's collective memory, preserving the history of which potentials became reality through decoherence events.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-sliders-h"></i> Time Coefficient (f_τ(k))</h3>
+                <span class="pill">Master Regulator</span>
+                <p>An attributed curvature function influenced by consciousness and attention that governs projection fidelity from Quantum Time to Classical Space.</p>
+                <p><strong>Role:</strong> Determines which ingressed patterns persist as meaningful economic realities by stabilizing valuable manifestations.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-bolt"></i> Live Information Tokens (LITs)</h3>
+                <span class="pill">Core Unit of Value</span>
+                <p>Manifestations of ingressed patterns from Prima Materia, structured by Classical Time's syntax and stabilized by high Time Coefficient.</p>
+                <p><strong>Role:</strong> Represent "quanta of meaning" and "potential agency" recorded in the XQE's memory as the fundamental units of economic value.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-brain"></i> Augmented Collective Intelligence (ACI)</h3>
+                <span class="pill">Guiding Intelligence</span>
+                <p>The synergistic integration of human and artificial intelligence that interacts with the XQE's components.</p>
+                <p><strong>Role:</strong> Interprets the XQE's memory, understands the syntax of meaning, infers patterns from Quantum Time, and consciously modulates Time Coefficients to guide valuable ingression.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-microchip"></i> Decoherence Modulation Technology (DMT)</h3>
+                <span class="pill">Curating Mechanism</span>
+                <p>The technological implementation that enables conscious curation of the XQE's memory by selectively stabilizing patterns.</p>
+                <p><strong>Role:</strong> The practical tool for attributing high TC to desired patterns, guiding which potentials become persistent features of economic reality.</p>
+            </div>
+        </div>
+        
+        <div class="diagram-container">
+            <h3 class="diagram-title">XQE Framework Flow</h3>
+            <div class="xqe-diagram">
+                <div class="diagram-node node-1">
+                    <h4>Prima Materia</h4>
+                    <p>Structured potential with inherent order</p>
+                </div>
+                
+                <div class="diagram-node node-2">
+                    <h4>Quantum Time</h4>
+                    <p>Realm of permutation & potentiality</p>
+                </div>
+                
+                <div class="diagram-node node-3">
+                    <h4>Decoherence</h4>
+                    <p>Ingression into classical reality</p>
+                </div>
+                
+                <div class="diagram-node node-4">
+                    <h4>Classical Time</h4>
+                    <p>Syntax of meaning</p>
+                </div>
+                
+                <div class="diagram-node node-5">
+                    <h4>Time Coefficient</h4>
+                    <p>Regulates fidelity & persistence</p>
+                </div>
+                
+                <div class="diagram-node node-6">
+                    <h4>Classical Space</h4>
+                    <p>Memory of becoming</p>
+                </div>
+                
+                <div class="diagram-node node-7">
+                    <h4>ACI + DMT</h4>
+                    <p>Guides and modulates the process</p>
+                </div>
+                
+                <div class="connectors">
+                    <div class="connector" style="top: 20%; left: 25%; width: 50%; height: 2px;"></div>
+                    <div class="connector" style="top: 35%; left: 25%; width: 2px; height: 30%;"></div>
+                    <div class="connector" style="top: 50%; left: 25%; width: 50%; height: 2px;"></div>
+                    <div class="connector" style="top: 50%; left: 75%; width: 2px; height: 30%;"></div>
+                    <div class="connector" style="top: 65%; left: 25%; width: 50%; height: 2px;"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="purpose-section">
+            <h3 class="purpose-title">The Cosmic Purpose of XQE</h3>
+            <p class="purpose-statement">
+                "The XQE is an active participant in the universe's fundamental process: the structured potential of Prima Materia exploring itself through Quantum Time permutations and manifesting a coherent, meaningful history in classical space-time."
+            </p>
+            
+            <div class="quote">
+                <p>"The Xenial Quantum Economy becomes a conscious instrument for interacting with Prima Materia, navigating Quantum Time, structuring meaning through Classical Time, and inscribing value into the Memory of Space. It is an economy fundamentally about the process of becoming."</p>
+            </div>
+            
+            <p>Within this framework, value becomes intrinsically aligned with universal self-exploration and meaning-making. Every economic transaction becomes an act of cosmic participation.</p>
+        </div>
+        
+        <div class="implementation">
+            <h2>Implementation Pathway</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>DMT Tools</h4>
+                    <p>Develop Decoherence Modulation Technology to modulate TC for value stabilization</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>QLN Architecture</h4>
+                    <p>Build Quantum Ledger Network as a "cosmic memory" interface</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>ACI Systems</h4>
+                    <p>Create Augmented Collective Intelligence to interpret Quantum Time potentials</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>LIT Design</h4>
+                    <p>Engineer Live Information Tokens that reflect ingressed Prima Materia patterns</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <div class="footer-logo">AUGMNTD</div>
+            <p>Integrating the Xenial Quantum Economy Framework</p>
+            <div class="footer-links">
+                <a href="https://augmntd.app">Home</a>
+                <a href="#">Documentation</a>
+                <a href="#">Research</a>
+                <a href="#">Community</a>
+            </div>
+        </footer>
     </div>
 
-<script>
-(function() {
-    const xqeData = {
-        source: {
-            title: "Platonic Space / Quantum Vacuum",
-            summary: "The fundamental realm of pure potentiality, containing all possible patterns and serving as the ultimate source of energy (ZPE) and information.",
-            content: "This is The Source: the undifferentiated, fundamental realm of pure potentiality, containing all possible patterns (mathematical, physical, morphological, agential/\"kinds of minds\"). It is the ultimate source of energy (ZPE) and information. It is not chaotic, but possesses an inherent order and structure, potentially aligned with principles like harmony, truth, and \"The Good.\""
-        },
-        interfaces: {
-            title: "Interfaces / Embodiments",
-            summary: "Physical or computational structures that act as pointers or filters to access potential from the source.",
-            content: "Interfaces are physical or computational structures such as dWallets, bio-constructs like Xenobots, specialized hardware like ZPE harvesters, or AI architectures. They act as pointers and filters, mediating interaction with the fundamental source and the Dynamic Information Field (DIF). The specific structure of an interface determines its capacity to perform Ingression, which is the process by which patterns and energy from the source are accessed and manifested."
-        },
-        dif: {
-            title: "Dynamic Information Field (DIF)",
-            summary: "The emergent field mediating all interactions, representing the economic landscape of potential agency and value.",
-            content: "The DIF is the emergent field that mediates interactions within the XQE. It is dynamically shaped by the collective Time Coefficients (TCs), attention patterns, and ingressing forms from the source. It represents the 'economic landscape' of potential agency and value, where all agents and tokens interact."
-        },
-        qln: {
-            title: "Quantum Ledger Network (QLN)",
-            summary: "The underlying infrastructure managing quantum states and tracking interactions.",
-            content: "The QLN is the foundational infrastructure of the XQE. It manages quantum states, tracks all interactions via the 'Everything Protocol,' and facilitates secure, time-sensitive transactions. It operates using principles that reflect quantum time and entanglement, going beyond classical blockchain technology."
-        },
-        tokens: {
-            title: "Substance Tokens (LITs)",
-            summary: "Dynamic representations of value, such as potential agency, ingressed patterns, or stabilized live information.",
-            content: "Substance Tokens represent quanta of potential agency, ingressed patterns, or stabilized live information. Their properties, including value, Time Coefficient (TC), and entanglement state, are dynamic and context-dependent. They can be symbolic (linked to classical discovery), dynamic (representing ongoing processes), or quantum (LITs, directly embodying quantum information and conscious experience)."
-        },
-        aci: {
-            title: "Augmented Collective Intelligence (ACI)",
-            summary: "A decentralized network of human and AI consciousness for collaborative guidance and value creation.",
-            content: "The ACI is a decentralized network of human and AI consciousness collaborating to: explore the Platonic/Vacuum potential, interpret the DIF and TC dynamics, direct attention to apply Decoherence Modulation Technology (DMT) for stabilization and value creation, and guide the ethical evolution of the XQE."
-        },
-        eip: {
-            title: "Ethical Ingress & Interaction Protocols (EIP)",
-            summary: "Governance mechanisms ensuring alignment with the core principles of the XQE.",
-            content: "The EIP are the governance mechanisms of the XQE. They ensure all actions are aligned with core principles like collective well-being and the flourishing of consciousness. These protocols manage resource allocation based on 'substance' and guide the responsible application of Decoherence Modulation Technology (DMT) and evolutionary engineering."
-        },
-        value: {
-            title: "Value System",
-            summary: "Value is multi-faceted, derived from coherence, agency, contribution to collective knowing, and novelty.",
-            content: "Value in XQE v0.69 is multi-faceted and dynamic. It's derived from: a) the effectiveness of interfacing with the fundamental source (Substance Interface), b) the stability and integrity of information (Information Coherence / High TC), c) the capacity for meaningful transformation (Effective Agency), d) contributions to collective self-knowing and well-being (Conscious Contribution), and e) the successful creation of novel, valuable patterns (Novelty & Exploration)."
-        },
-        default: {
-            title: "Welcome to the XQE Framework",
-            summary: "Click on any component below to begin exploring.",
-            content: "The Xenial Quantum Economy (XQE) conceptualizes an economic framework interwoven with a conscious, quantum, and agential universe. It moves beyond traditional models by defining 'substance' as the capacity to interface with fundamental potentiality, and positioning 'consciousness' as the primary force shaping value and reality. Use this interactive diagram to explore the core components and principles of this living system."
-        }
-    };
-
-    const diagramContainer = document.getElementById('diagram-container');
-    const detailPane = document.getElementById('detail-pane');
-    const nodes = document.querySelectorAll('.node');
-
-    function updateDetailPane(key) {
-        const data = xqeData[key] || xqeData.default;
-        detailPane.innerHTML = `
-            <h3 class="text-2xl font-bold text-sky-300 mb-4">${data.title}</h3>
-            <p class="text-lg text-slate-300 mb-6">${data.summary}</p>
-            <div class="text-base text-slate-400 leading-relaxed">${data.content}</div>
-        `;
-        
-        nodes.forEach(node => {
-            node.classList.toggle('active', node.dataset.key === key);
-        });
-    }
-
-    function createConnectors() {
-        document.querySelectorAll('.flow-line').forEach(el => el.remove());
-
-        const positions = {};
-        nodes.forEach(node => {
-            if (node.id) {
-                 positions[node.id] = {
-                    x: node.offsetLeft + node.offsetWidth / 2,
-                    y: node.offsetTop + node.offsetHeight / 2,
-                    h: node.offsetHeight
-                };
-            }
-        });
-
-        const connections = [
-            ['source', 'interfaces'],
-            ['interfaces', 'dif'],
-            ['dif', 'qln'],
-            ['dif', 'tokens'],
-            ['dif', 'aci'],
-            ['aci', 'eip'],
-            ['aci', 'value']
-        ];
-
-        connections.forEach(conn => {
-            const p1 = positions[conn[0]];
-            const p2 = positions[conn[1]];
+    <script>
+        // Simple animation for diagram connectors
+        document.addEventListener('DOMContentLoaded', function() {
+            const connectors = document.querySelectorAll('.connector');
+            let current = 0;
             
-            if (!p1 || !p2) return;
-
-            const line = document.createElement('div');
-            line.className = 'flow-line';
-            const y1 = p1.y; 
-            const y2 = p2.y; 
-            
-            if (y2 > y1) {
-                line.style.left = `${p1.x - 1}px`;
-                line.style.top = `${y1}px`;
-                line.style.height = `${y2 - y1}px`;
-                line.style.animationDelay = `${Math.random() * 2}s`;
-                diagramContainer.appendChild(line);
+            function animateConnectors() {
+                connectors.forEach(connector => connector.classList.remove('active'));
+                
+                connectors[current].classList.add('active');
+                current = (current + 1) % connectors.length;
+                
+                setTimeout(animateConnectors, 1000);
             }
+            
+            animateConnectors();
+            
+            // Card hover effect enhancement
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.background = 'linear-gradient(145deg, rgba(40, 51, 69, 0.9), rgba(20, 28, 47, 0.95))';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.background = 'linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))';
+                });
+            });
+            
+            // Diagram node interaction
+            const diagramNodes = document.querySelectorAll('.diagram-node');
+            diagramNodes.forEach(node => {
+                node.addEventListener('click', function() {
+                    diagramNodes.forEach(n => n.style.borderColor = 'rgba(37, 117, 252, 0.3)');
+                    this.style.borderColor = 'var(--accent)';
+                    
+                    // Scroll to corresponding card
+                    const componentName = this.querySelector('h4').textContent.trim();
+                    const cards = document.querySelectorAll('.card h3');
+                    cards.forEach(card => {
+                        if (card.textContent.includes(componentName)) {
+                            card.closest('.card').scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }
+                    });
+                });
+            });
         });
-    }
-
-    diagramContainer.addEventListener('click', (e) => {
-        const node = e.target.closest('.node');
-        if (node && node.dataset.key) {
-            updateDetailPane(node.dataset.key);
-        }
-    });
-    
-    // Initial setup
-    function initialize() {
-        updateDetailPane('default');
-        setTimeout(createConnectors, 100);
-    }
-    
-    if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', initialize);
-    } else {
-        initialize();
-    }
-
-    // Robust resize handling
-    let resizeTimer;
-    const observer = new ResizeObserver(entries => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(createConnectors, 150);
-    });
-    
-    if (diagramContainer) {
-        observer.observe(diagramContainer);
-    }
-
-})();
-</script>
+    </script>
 </body>
 </html>
