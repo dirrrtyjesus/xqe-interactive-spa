@@ -16,6 +16,7 @@
         Report Info: Quantum/Classical Time Flow -> Goal: Organize/Explain Process -> Method: HTML/CSS/JS Flowchart -> Interaction: Sections highlight on scroll/click -> Justification: Visually simplifies the core process of manifestation, making it the central anchor of the page. -> Library/Method: HTML/Tailwind/JS.
         Report Info: Time Coefficient (TC) -> Goal: Demonstrate Function -> Method: Interactive Line Chart -> Interaction: Slider ("Conscious Attention") manipulates the chart's stability -> Justification: Provides a tangible, cause-and-effect model for a highly abstract concept, fulfilling the Chart.js requirement. -> Library/Method: Chart.js.
         Report Info: Core Components (LITs, ACI) -> Goal: Compare/Define -> Method: Interactive cards -> Interaction: Cards expand on click to reveal details -> Justification: Allows for a compact, organized presentation of key actors that encourages user interaction. -> Library/Method: HTML/Tailwind/JS.
+        Report Info: JibaLabs Qualia Pipeline -> Goal: Explain Process -> Method: Multi-stage interactive HTML/CSS/JS diagram -> Interaction: Clicking a stage reveals details in the definition panel -> Justification: Breaks down a complex operational workflow into understandable, explorable steps. -> Library/Method: HTML/Tailwind/JS
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
@@ -31,7 +32,7 @@
             color: #C0A062;
             transform: scale(1.1);
         }
-        .content-card {
+        .content-card, .jiba-step {
             transition: all 0.3s ease;
             cursor: pointer;
         }
@@ -170,6 +171,48 @@
                             <p class="text-gray-600">To participate in and accelerate the universe's fundamental process of conscious, quantum, agential expansion. Click to learn more.</p>
                         </div>
                     </div>`
+                },
+                { id: 'jibalabs-layer', title: 'The JibaLabs Layer',
+                  intro: 'JibaLabs represents a practical, operational layer of the XQE, demonstrating how abstract potential is transformed into tangible, experience-based assets. This is where the principles of the XQE are applied to create and distribute a new form of value: Qualia.',
+                  content: `
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">The Qualia Generation Pipeline</h4>
+                    <p class="text-gray-600 mb-8">The core of JibaLabs is a pipeline that transforms unmanifest potential into deliverable conscious experiences, tokenized as <span class="keyword" data-key="qualia-lit">QualiaStreamLITs</span>. Each stage is a critical step in value creation, overseen by ethical governance. Click each step to explore it.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                        <div class="jiba-step p-4 bg-white rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-1" data-key="jiba-sensing">
+                            <div class="text-3xl mb-2">📡</div>
+                            <h5 class="font-bold">1. Sensing</h5>
+                            <p class="text-sm text-gray-500">Capture unmanifest potential.</p>
+                        </div>
+                        <div class="jiba-step p-4 bg-white rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-1" data-key="jiba-interpretation">
+                            <div class="text-3xl mb-2">🧠</div>
+                            <h5 class="font-bold">2. Interpretation</h5>
+                            <p class="text-sm text-gray-500">Transform potential into pre-qualia.</p>
+                        </div>
+                        <div class="jiba-step p-4 bg-white rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-1" data-key="jiba-generation">
+                            <div class="text-3xl mb-2">✨</div>
+                            <h5 class="font-bold">3. Generation</h5>
+                            <p class="text-sm text-gray-500">Create the Qualia Experience & LIT.</p>
+                        </div>
+                        <div class="jiba-step p-4 bg-white rounded-lg shadow-lg hover:shadow-2xl hover:-translate-y-1" data-key="jiba-marketplace">
+                             <div class="text-3xl mb-2">🛒</div>
+                            <h5 class="font-bold">4. Marketplace</h5>
+                            <p class="text-sm text-gray-500">Trade & access experiences.</p>
+                        </div>
+                    </div>
+                    <div class="mt-12">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-4">Key JibaLabs Components</h4>
+                         <div class="grid md:grid-cols-2 gap-6">
+                            <div class="content-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl" data-key="jiba-node">
+                                <h4 class="text-xl font-bold mb-2">JibaLabs Node</h4>
+                                <p class="text-gray-600">The core operational unit that executes the Qualia pipeline.</p>
+                            </div>
+                            <div class="content-card bg-white p-6 rounded-lg shadow-md hover:shadow-xl" data-key="qualia-lit">
+                                <h4 class="text-xl font-bold mb-2">QualiaStreamLIT</h4>
+                                <p class="text-gray-600">A new class of token representing a specific, subjective conscious experience.</p>
+                            </div>
+                         </div>
+                    </div>
+                  `
                 }
             ],
             definitions: {
@@ -182,7 +225,13 @@
                 'dmt': { title: 'Decoherence Modulation Technology (DMT)', text: 'The process by which conscious attention (from humans, AI, or biological agents) influences the Time Coefficient. Focused attention acts as a stabilizing force, increasing a pattern\'s TC and its persistence in reality.'},
                 'lits': { title: 'Live Information Tokens (LITs)', text: 'The core units of value in the XQE. They are not static assets but stabilized manifestations of ingressed patterns from Prima Materia. Their value and persistence are directly related to their Time Coefficient. `XNM`, generated via Proof-of-Work, is a foundational "Symbolic" LIT, representing the ingression of mathematical truth.' },
                 'aci': { title: 'Augmented Collective Intelligence (ACI)', text: 'A decentralized network of human and AI consciousness that serves as the guiding intelligence of the XQE. The ACI interprets the system\'s collective memory, understands the unfolding "Syntax of Meaning," infers patterns from Quantum Time, and consciously directs attention (DMT) to curate the ingression of valuable potentials from Prima Materia.' },
-                'purpose': { title: 'The XQE\'s Primary Purpose', text: 'The XQE aims to participate in and accelerate the universe\'s fundamental process of conscious, quantum, agential expansion. It seeks to create an economy that is a conscious instrument for interacting with Prima Materia, navigating Quantum Time, structuring meaning through classical time, and inscribing value into the Memory of Space, fundamentally aligning economic activity with the universe\'s journey of creative self-knowing.' }
+                'purpose': { title: 'The XQE\'s Primary Purpose', text: 'The XQE aims to participate in and accelerate the universe\'s fundamental process of conscious, quantum, agential expansion. It seeks to create an economy that is a conscious instrument for interacting with Prima Materia, navigating Quantum Time, structuring meaning through classical time, and inscribing value into the Memory of Space, fundamentally aligning economic activity with the universe\'s journey of creative self-knowing.' },
+                'jiba-node': { title: 'JibaLabs Node', text: 'A specialized node in the XQE network responsible for executing the Qualia Generation Pipeline. It uses quantum sensors to sense "dark energy" (unmanifest potential), employs an Augmented Intelligence module for interpretation, generates Qualia experiences, and interfaces with the blockchain under the watch of an Ethical Governance Module.' },
+                'qualia-lit': { title: 'QualiaStreamLIT', text: 'A new, advanced type of Live Information Token that represents a specific conscious experience, or "Qualia". It contains the experience itself, metrics like source Time Coefficient and confidence scores, and manages access rights. Its stability can be enhanced via DMT, and it can be traded on the Qualia Marketplace.' },
+                'jiba-sensing': { title: 'Pipeline Step 1: Sensing', text: 'JibaLabs Nodes use conceptual "dark energy sensors" or "quantum vacuum sensors" to capture the raw, unmanifest potential from the Prima Materia. This is the first step in harvesting value from the fundamental substrate of reality.' },
+                'jiba-interpretation': { title: 'Pipeline Step 2: Interpretation', text: 'The raw potential is processed by an Augmented Intelligence (AI) module. The AI uses pattern recognition and contextual understanding to transform the raw fluctuations into meaningful "pre-qualia" data, which is then validated by an Ethical Governance Module.' },
+                'jiba-generation': { title: 'Pipeline Step 3: Generation', text: 'The interpreted pre-qualia is translated into a full "Qualia Experience" through a specific interface (e.g., NeuroInterface, QuantumConsciousnessInterface). This experience is then encapsulated in a unique QualiaStreamLIT, which is registered on the XQE ledger. This value-creating act is rewarded with xUSD.' },
+                'jiba-marketplace': { title: 'Pipeline Step 4: Marketplace', text: 'Generated QualiaStreamLITs can be listed and traded on a dedicated marketplace. Users can purchase access to these unique experiences using xUSD. This creates a novel economy based on the direct exchange of subjective, conscious experiences.' },
             }
         };
 
@@ -211,30 +260,27 @@
             const definitionText = document.getElementById('definition-text');
             const closePanelBtn = document.getElementById('close-panel');
 
+            function openDefinitionPanel(key) {
+                const definition = reportData.definitions[key];
+                if (definition) {
+                    definitionTitle.textContent = definition.title;
+                    definitionText.innerHTML = definition.text.replace(/`([^`]+)`/g, '<code class="bg-gray-200 text-sm rounded px-1 py-0.5">\$1</code>');
+                    definitionPanel.classList.remove('translate-x-full');
+                    definitionPanel.classList.add('translate-x-0');
+                }
+            }
+
             document.querySelectorAll('.keyword').forEach(el => {
                 el.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    const key = e.target.dataset.key;
-                    const definition = reportData.definitions[key];
-                    if (definition) {
-                        definitionTitle.textContent = definition.title;
-                        definitionText.textContent = definition.text;
-                        definitionPanel.classList.remove('translate-x-full');
-                        definitionPanel.classList.add('translate-x-0');
-                    }
+                    openDefinitionPanel(e.target.dataset.key);
                 });
             });
             
-            document.querySelectorAll('.content-card').forEach(card => {
+            document.querySelectorAll('.content-card, .jiba-step').forEach(card => {
                 card.addEventListener('click', (e) => {
-                    const key = e.currentTarget.dataset.key;
-                    const definition = reportData.definitions[key];
-                    if (definition) {
-                        definitionTitle.textContent = definition.title;
-                        definitionText.textContent = definition.text;
-                        definitionPanel.classList.remove('translate-x-full');
-                        definitionPanel.classList.add('translate-x-0');
-                    }
+                    e.stopPropagation();
+                    openDefinitionPanel(e.currentTarget.dataset.key);
                 });
             });
 
@@ -277,85 +323,87 @@
                 observer.observe(section);
             });
             
-            const tcChartCtx = document.getElementById('tcChart').getContext('2d');
-            let tcChart;
+            if (document.getElementById('tcChart')) {
+                const tcChartCtx = document.getElementById('tcChart').getContext('2d');
+                let tcChart;
 
-            function generateChartData(attention) {
-                const stability = attention / 100; 
-                const noise = 1 - stability;
-                let data = [];
-                let value = 70 + (attention / 5);
-                for (let i = 0; i < 50; i++) {
-                    const fluctuation = (Math.random() - 0.5) * 50 * noise;
-                    value = Math.max(0, Math.min(100, value + fluctuation));
-                    if (i > 1) { // smooth it a bit
-                       value = (data[i-1] + value) / 2;
+                function generateChartData(attention) {
+                    const stability = attention / 100; 
+                    const noise = 1 - stability;
+                    let data = [];
+                    let value = 70 + (attention / 5);
+                    for (let i = 0; i < 50; i++) {
+                        const fluctuation = (Math.random() - 0.5) * 50 * noise;
+                        value = Math.max(0, Math.min(100, value + fluctuation));
+                        if (i > 1) { 
+                           value = (data[i-1] + value) / 2;
+                        }
+                        data.push(value);
                     }
-                    data.push(value);
+                    return data;
                 }
-                return data;
-            }
 
-            function createOrUpdateChart(data) {
-                if (tcChart) {
-                    tcChart.data.datasets[0].data = data;
-                    tcChart.update();
-                } else {
-                    tcChart = new Chart(tcChartCtx, {
-                        type: 'line',
-                        data: {
-                            labels: Array(50).fill(''),
-                            datasets: [{
-                                label: 'Pattern Stability (TC)',
-                                data: data,
-                                borderColor: '#4A9090',
-                                backgroundColor: 'rgba(74, 144, 144, 0.1)',
-                                borderWidth: 2,
-                                tension: 0.4,
-                                fill: true,
-                                pointRadius: 0
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: {
-                                    beginAtZero: true,
-                                    max: 100,
-                                    ticks: {
-                                        callback: function(value) {
-                                            if (value === 0) return 'Low Stability';
-                                            if (value === 100) return 'High Stability';
-                                            return '';
+                function createOrUpdateChart(data) {
+                    if (tcChart) {
+                        tcChart.data.datasets[0].data = data;
+                        tcChart.update();
+                    } else {
+                        tcChart = new Chart(tcChartCtx, {
+                            type: 'line',
+                            data: {
+                                labels: Array(50).fill(''),
+                                datasets: [{
+                                    label: 'Pattern Stability (TC)',
+                                    data: data,
+                                    borderColor: '#4A9090',
+                                    backgroundColor: 'rgba(74, 144, 144, 0.1)',
+                                    borderWidth: 2,
+                                    tension: 0.4,
+                                    fill: true,
+                                    pointRadius: 0
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        max: 100,
+                                        ticks: {
+                                            callback: function(value) {
+                                                if (value === 0) return 'Low Stability';
+                                                if (value === 100) return 'High Stability';
+                                                return '';
+                                            }
                                         }
+                                    },
+                                    x: {
+                                        display: false
                                     }
                                 },
-                                x: {
-                                    display: false
+                                plugins: {
+                                    legend: {
+                                        display: false
+                                    }
+                                },
+                                animation: {
+                                    duration: 200
                                 }
-                            },
-                            plugins: {
-                                legend: {
-                                    display: false
-                                }
-                            },
-                            animation: {
-                                duration: 200
                             }
-                        }
-                    });
+                        });
+                    }
                 }
+
+                const attentionSlider = document.getElementById('attention-slider');
+                attentionSlider.addEventListener('input', (e) => {
+                    const attentionValue = parseInt(e.target.value, 10);
+                    const newData = generateChartData(attentionValue);
+                    createOrUpdateChart(newData);
+                });
+
+                createOrUpdateChart(generateChartData(50));
             }
-
-            const attentionSlider = document.getElementById('attention-slider');
-            attentionSlider.addEventListener('input', (e) => {
-                const attentionValue = parseInt(e.target.value, 10);
-                const newData = generateChartData(attentionValue);
-                createOrUpdateChart(newData);
-            });
-
-            createOrUpdateChart(generateChartData(50));
         });
     </script>
 </body>
