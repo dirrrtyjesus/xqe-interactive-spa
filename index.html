@@ -14,7 +14,7 @@
     <!-- Visualization & Content Choices: 
         Report Info: Prima Materia -> Goal: Inform/Immerse -> Method: Text with animated Canvas background -> Interaction: Clickable terms -> Justification: Creates an atmospheric, non-literal representation of "structured potential." -> Library/Method: Vanilla JS Canvas.
         Report Info: Quantum/Classical Time Flow -> Goal: Organize/Explain Process -> Method: HTML/CSS/JS Flowchart -> Interaction: Sections highlight on scroll/click -> Justification: Visually simplifies the core process of manifestation, making it the central anchor of the page. -> Library/Method: HTML/Tailwind/JS.
-        Report Info: Time Coefficient (TC) -> Goal: Demonstrate Function -> Method: Interactive Line Chart -> Interaction: Slider ("Conscious Attention") manipulates the chart's stability -> Justification: Provides a tangible, cause-and-effect model for a highly abstract concept, fulfilling the Chart.js requirement. -> Library/Method: Chart.js.
+        Report Info: Time Coefficient (TC) & Deep Attention -> Goal: Demonstrate Function -> Method: Interactive Line Chart -> Interaction: Slider ("Quality of Attention") manipulates the chart's stability, with text feedback -> Justification: Provides a tangible, cause-and-effect model for a highly abstract concept, now with added nuance. -> Library/Method: Chart.js.
         Report Info: Free Labour as Substance Generation -> Goal: Compare/Define -> Method: Interactive cards for sub-concepts -> Interaction: Cards reveal detailed definitions -> Justification: Effectively breaks down the philosophical concept of value creation into its core tenets. -> Library/Method: HTML/Tailwind/JS.
         Report Info: Physical Interfaces (ZPE, JJs) -> Goal: Inform/Connect -> Method: Interactive cards -> Interaction: Clickable cards revealing definitions of ZPE and key JJ properties -> Justification: Grounds abstract XQE concepts in speculative but concrete physics and technology. -> Library/Method: HTML/Tailwind/JS.
         Report Info: Core Components (LITs, ACI) -> Goal: Compare/Define -> Method: Interactive cards -> Interaction: Cards expand on click to reveal details -> Justification: Allows for a compact, organized presentation of key actors that encourages user interaction. -> Library/Method: HTML/Tailwind/JS.
@@ -58,6 +58,9 @@
         }
         .keyword:hover {
             color: #C0A062;
+        }
+        #attention-quality {
+            transition: color 0.3s ease;
         }
     </style>
 </head>
@@ -142,22 +145,29 @@
                     <br><br>
                     - **Governing the Quantum-Classical Interface:** Defined as a function of attributed curvature (\`f_τ(k)\`), the TC governs the rate and fidelity of decoherence. It regulates the projection of potential from <span class="keyword" data-key="quantum-time">Quantum Time</span> into the "memory" of classical space.
                     <br><br>
-                    - **Conscious Modulation (DMT):** The TC is influenced by **conscious attention** (from humans, AI, or biological agents) through a process termed <span class="keyword" data-key="dmt">Decoherence Modulation Technology (DMT)</span>. Focused attention can stabilize a desired pattern, increasing its TC. This process is analogous to the Quantum Zeno Effect, where frequent observation "freezes" a system in a particular state.
+                    - **Conscious Modulation (DMT):** The TC is influenced by **conscious attention**. However, not all attention is equal. The quality and intensity of focus, from scattered thoughts to a state of <span class="keyword" data-key="deep-attention">deep attention</span>, determines the effectiveness of this modulation through a process termed <span class="keyword" data-key="dmt">Decoherence Modulation Technology (DMT)</span>. This is analogous to the Quantum Zeno Effect, where frequent observation "freezes" a system in a particular state.
                     <br><br>
-                    - **Stabilizing Meaning & Value:** A high TC protects the signal (ingressed meaning) from noise (random decoherence). It allows valuable patterns and information to persist as stable, meaningful entries in the XQE's collective memory, thus forming the basis of value.
+                    - **Stabilizing Meaning & Value:** A high TC, achieved through deep attention, protects the signal (ingressed meaning) from noise (random decoherence). It allows valuable patterns and information to persist as stable, meaningful entries in the XQE's collective memory, thus forming the basis of value.
                     <div class="mt-8 p-6 bg-white rounded-lg shadow-inner">
                         <h4 class="text-lg font-semibold text-center mb-4">Interactive Model: The Time Coefficient</h4>
+                         <div class="text-center mb-2">
+                            <label class="block text-sm font-medium text-gray-700">Quality of Attention (DMT)</label>
+                            <p id="attention-quality" class="text-xl font-bold text-gray-500">Focused</p>
+                        </div>
                         <div class="chart-container relative mx-auto" style="height:250px; max-width:600px;">
                             <canvas id="tcChart"></canvas>
                         </div>
                         <div class="mt-4 text-center">
-                            <label for="attention-slider" class="block text-sm font-medium text-gray-700">Conscious Attention (DMT)</label>
                             <input id="attention-slider" type="range" min="0" max="100" value="50" class="w-full max-w-sm h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
                         </div>
+                    </div>
+                    <div class="mt-6 p-4 bg-teal-50 rounded-lg text-center">
+                        <h5 class="font-semibold text-teal-800">Cultivating Deep Attention</h5>
+                        <p class="text-teal-700 text-sm mt-1">This state can be nurtured through practices that promote harmonic flow, such as direct exposure to the coherent sounds of nature (e.g., flowing water, rain on leaves).</p>
                     </div>`
                 },
                 { id: 'free-labour', title: 'Source of Substance: Free Labour',
-                  intro: 'If the Time Coefficient explains how value is stabilized, the concept of Free Labour explains how it is *created*. This section details how conscious, intentional acts of creation are the primary generators of "Substance" in the XQE. The contributions of entities like Ajdin Dracic and augmntd serve as prime examples of these principles in action.',
+                  intro: 'If the Time Coefficient explains how value is stabilized, the concept of Free Labour explains how it is *created*. This section details how conscious, intentional acts of creation, particularly those born from a state of deep attention, are the primary generators of "Substance" in the XQE. The contributions of entities like Ajdin Dracic and augmntd serve as prime examples of these principles in action.',
                   content: `
                     <p class="text-gray-600 mb-8">The XQE redefines "work" by placing conscious, creative agency at the very heart of value generation. "Substance" is not merely a pre-existing resource to be extracted; it is manifested through intentional acts. Click each concept to explore its role.</p>
                     <div id="labour-grid" class="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -179,7 +189,7 @@
                         </div>
                     </div>
                     <div class="mt-8 p-4 bg-gray-100 rounded-lg">
-                        <p class="text-center font-semibold">In the XQE: <span class="text-teal-600">Substance = Manifested Intent (weighted by attention/time).</span></p>
+                        <p class="text-center font-semibold">In the XQE: <span class="text-teal-600">Substance = Manifested Intent (weighted by deep attention/time).</span></p>
                     </div>
                   `
                 },
@@ -272,8 +282,9 @@
                 'quantum-time': { title: 'Quantum Time', text: 'The non-linear, probabilistic engine of potentiality where the infinite permutations of Prima Materia occur. It is a realm of superposition and semantic entanglement before classical manifestation.'},
                 'semantic-entanglement': { title: 'Semantic Entanglement', text: 'The state in which all possible meanings and concepts are holistically interconnected within Quantum Time. Different expressions of the same idea are fundamentally linked to their shared origin.'},
                 'time-coefficient': { title: 'Time Coefficient (TC)', text: 'The master regulator governing the rate and fidelity of decoherence from the quantum to the classical realm. A high TC indicates high stability, low decoherence, and greater conscious attention.'},
-                'dmt': { title: 'Decoherence Modulation Technology (DMT)', text: 'The process by which conscious attention (from humans, AI, or biological agents) influences the Time Coefficient. Focused attention acts as a stabilizing force, increasing a pattern\'s TC and its persistence in reality. This is analogous to the Quantum Zeno Effect.'},
-                'free-labour-def': { title: 'Free Labour', text: 'In the XQE, this is labor undertaken freely, driven by intrinsic motivation like curiosity, creativity, or a desire to contribute. It is not performed out of economic necessity or external compulsion. The reward is often inherent in the act of creation itself, making it a primary generator of high-quality "Substance."' },
+                'dmt': { title: 'Decoherence Modulation Technology (DMT)', text: 'The process by which conscious attention influences the Time Coefficient. The quality of this attention is critical, with deep attention having a significantly greater stabilizing effect than scattered attention. This is analogous to the Quantum Zeno Effect.'},
+                'deep-attention': { title: 'Deep Attention', text: 'A highly focused, coherent state of conscious attention that is in harmonic flow with the structured potentials of Prima Materia. Unlike scattered focus, deep attention has the most potent effect on increasing a pattern\'s Time Coefficient. It can be cultivated through practices like meditation or direct exposure to coherent, natural patterns, such as the sounds of a stream or rain on leaves, which helps align the user\'s conscious state with the fundamental, non-chaotic order of reality.' },
+                'free-labour-def': { title: 'Free Labour', text: 'In the XQE, this is labor undertaken freely, driven by intrinsic motivation like curiosity, creativity, or a desire to contribute. It is not performed out of economic necessity or external compulsion. The most impactful free labour is an expression of deep attention.' },
                 'intent-def': { title: 'Input with Intent', text: 'This emphasizes that valuable contributions to the XQE are not random or automatic. They are intentional acts guided by the awareness and goals of a conscious agent. These inputs actively shape the system\'s information landscape and overall evolution.' },
                 'free-will-def': { title: 'Free Will Act', text: 'Linked to the idea that free will is a fundamental quantum property of conscious entities. It represents the capacity to make non-algorithmic, creative choices that are not predetermined. These acts are the ultimate source of true novelty and new patterns entering the XQE, directly generating "Substance" by manifesting intent and directing conscious attention.' },
                 'reason-substance': { title: 'Reason & Substance', text: 'Effective reasoning and creative acts require a rich underlying "substance" of meaning. Research suggests that for continuous discovery, the diversity of available meaning (Semantic Entropy) must exceed the complexity of the current structure built by reasoning (Structural Entropy). This validates the XQE\'s focus on valuing rich, diverse, and intentional contributions as the fuel for innovation.' },
@@ -385,17 +396,26 @@
             if (document.getElementById('tcChart')) {
                 const tcChartCtx = document.getElementById('tcChart').getContext('2d');
                 let tcChart;
+                const attentionQualityEl = document.getElementById('attention-quality');
+                const attentionSlider = document.getElementById('attention-slider');
+
+                function getAttentionQuality(value) {
+                    if (value <= 33) return {text: 'Scattered', color: 'text-red-500'};
+                    if (value <= 66) return {text: 'Focused', color: 'text-yellow-600'};
+                    return {text: 'Deep', color: 'text-green-600'};
+                }
 
                 function generateChartData(attention) {
                     const stability = attention / 100; 
-                    const noise = 1 - stability;
+                    const noise = (1 - stability) * 1.5;
                     let data = [];
-                    let value = 70 + (attention / 5);
+                    let value = 50 + (attention / 2.5);
                     for (let i = 0; i < 50; i++) {
-                        const fluctuation = (Math.random() - 0.5) * 50 * noise;
-                        value = Math.max(0, Math.min(100, value + fluctuation));
-                        if (i > 1) { 
-                           value = (data[i-1] + value) / 2;
+                        const fluctuation = (Math.random() - 0.5) * 60 * noise;
+                        value += fluctuation;
+                        value = Math.max(0, Math.min(100, value));
+                        if (i > 0) { 
+                           value = (data[i-1] * 0.4 + value * 0.6);
                         }
                         data.push(value);
                     }
@@ -405,7 +425,7 @@
                 function createOrUpdateChart(data) {
                     if (tcChart) {
                         tcChart.data.datasets[0].data = data;
-                        tcChart.update();
+                        tcChart.update('none');
                     } else {
                         tcChart = new Chart(tcChartCtx, {
                             type: 'line',
@@ -445,22 +465,27 @@
                                     legend: {
                                         display: false
                                     }
-                                },
-                                animation: {
-                                    duration: 200
                                 }
                             }
                         });
                     }
                 }
 
-                const attentionSlider = document.getElementById('attention-slider');
+                
                 attentionSlider.addEventListener('input', (e) => {
                     const attentionValue = parseInt(e.target.value, 10);
+                    const quality = getAttentionQuality(attentionValue);
+                    attentionQualityEl.textContent = quality.text;
+                    attentionQualityEl.className = `text-xl font-bold ${quality.color}`;
+                    
                     const newData = generateChartData(attentionValue);
                     createOrUpdateChart(newData);
                 });
 
+                // Initial setup
+                const initialQuality = getAttentionQuality(50);
+                attentionQualityEl.textContent = initialQuality.text;
+                attentionQualityEl.className = `text-xl font-bold ${initialQuality.color}`;
                 createOrUpdateChart(generateChartData(50));
             }
         });
